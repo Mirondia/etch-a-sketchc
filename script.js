@@ -18,9 +18,20 @@ function makeGrid(rows, columns) {
         square.style.minWidth = '0';
         square.style.overflow = 'hidden';
         containerDiv.appendChild(square).className = 'grid-item';
-        // Adding a mouseover eventListener;
+        // Adding a mouseover eventListener to check for background color presence;
         square.addEventListener('mouseover', () => {
-            square.style.backgroundColor = 'blue';
+            if(square.style.backgroundColor == '') {
+                let color = getRandomColor();
+                square.style.backgroundColor = color;
+                square.style.opacity = '.10';
+                return square.style.backgroundColor;
+
+            }
+            // apply addition opacity at 10% intervals, hard stop at 1.0 (100%) if background color is present
+            if((square.style.backgroundColor !== '') && (square.style.opacity <= '0.90')) {
+                square.style.opacity = parseFloat(square.style.opacity) + .10;
+                return square.style.backgroundColor;
+            }
         })
     }
     createButton();
@@ -31,6 +42,10 @@ function createButton() {
     const resetButton = document.createElement('button');
     resetButton.textContent = 'Reset Grid';
     resetButton.style.margin = '20px';
+    resetButton.style.backgroundColor = 'blue';
+    resetButton.style.padding = '2%';
+    resetButton.style.fontSize = '20px';
+    resetButton.style.borderRadius = '20%';
     buttonDiv.appendChild(resetButton);
 
     // add event listener to the button and prompt user/reset grid/throw error> 100
@@ -48,6 +63,13 @@ function createButton() {
 
     })
 
+}
+
+function getRandomColor() {
+    let o = Math.round;
+    let r = Math.random;
+    let s = 255;
+    return 'rgb('+ o(r()*s) + ',' + o(r()*s) + ')';
 }
 
 makeGrid(16, 16);
