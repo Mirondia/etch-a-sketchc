@@ -1,20 +1,16 @@
-let amtOfGrids = 4;
 
-const container = document.getElementById('#container');
-const createGrid = (amtOfGrids) => {
-    for(let i = 1; i <= amtOfGrids; i++) {
-        const row = document.createElement('div');
-        row.classList.add('grid-row');
-        console.log(i);
+const containerDiv = document.querySelector('#container');
 
-        for(let j = 1; j <= amtOfGrids; j++){
-            const gridBox = document.createElement('div');
-            gridBox.classList.add('grid-box')
-            row.appendChild(gridBox);
-            console.log(j);
-        }
-    container.appendChild(row);
+function makeRows(rows, columns) {
+    containerDiv.style.setProperty('--grid-rows', rows);
+    containerDiv.style.setProperty('--grid-columns', columns);
+    console.log(containerDiv);
+    console.log(rows);
+    console.log(columns);
+   for(i = 0; i< (rows * columns); i++) {
+        let square = document.createElement('div');
+        //square.innerText = (i+1);
+        containerDiv.appendChild(square).className = 'grid-item';
     }
 }
-
-createGrid(amtOfGrids);
+ makeRows(16, 16);
